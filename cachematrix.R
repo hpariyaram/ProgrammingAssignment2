@@ -17,17 +17,21 @@ makeCacheMatrix <- function(x = matrix()) {
 
         m <- NULL
 
+	## sets the cache with the matrix inverse.
 	set <- function(y) {
 	          x <<- y
 	          m <<- NULL
 		}
 
+	## Initialise the sub-functions and 
+	## set the cache with inverse of the matrix.
 	get <- function() x
 
 	setim <- function(solve) m <<- solve
 
         getim <- function() m
 
+	## Forms the list of functions/methods to return.
         list(set = set, get = get, setim = setim, getim = getim)
 }
 
@@ -52,7 +56,9 @@ makeCacheMatrix <- function(x = matrix()) {
 
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
-		
+
+	## Invoke the cache and if the 
+	## inverse matrix is already in cache or not?
 	mylist <- makeCacheMatrix(x)
 
         m <- mylist$getim()
@@ -62,11 +68,13 @@ cacheSolve <- function(x, ...) {
              return(m)
         }
 
+	## If the cache is empty find the inverse matrix and caches it.
         data <- mylist$get()
 
 	m <- solve(data, ...)
 
 	mylist$setim(solve)
 
+	## Returns the inverse matrix either invoked or calculated.
         m
 }
