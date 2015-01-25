@@ -61,8 +61,12 @@ cacheSolve <- function(x, ...) {
              message("getting cached data")
              return(m)
         }
-										        data <- mylist$get()
-											m <- solve(data, ...)
-											mylist$setim(solve)
-										        m
+
+        data <- mylist$get()
+
+	m <- solve(data, ...)
+
+	mylist$setim(solve)
+
+        m
 }
